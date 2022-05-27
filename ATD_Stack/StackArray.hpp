@@ -18,7 +18,7 @@ public:
 
   StackArray& operator=(const StackArray< T >& src) = delete;
   StackArray& operator=(StackArray< T >&& src);
-  T& operator[](const int& index);
+  //T& operator[](const int& index);
   template < class T1 >
   friend std::ostream& operator<<(std::ostream& out, StackArray< T1 >& src);
 
@@ -118,11 +118,11 @@ StackArray< T >& StackArray< T >::operator=(StackArray< T >&& src)
   return *this;
 }
 
-template < class T >
-T& StackArray< T >::operator[](const int& index)
-{
-  return array_[index];
-}
+//template < class T >
+//T& StackArray< T >::operator[](const int& index)
+//{
+//  return array_[index];
+//}
 
 template < class T1 >
 std::ostream& operator<<(std::ostream& out, StackArray< T1 >& src)
