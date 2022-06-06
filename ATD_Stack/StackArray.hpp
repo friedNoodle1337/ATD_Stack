@@ -23,7 +23,7 @@ public:
 
   void push(const T& e) override;
   T pop() override;
-  bool isEmpty() override;
+  bool isEmpty() const override;
 
   class StackException
   {
@@ -107,10 +107,6 @@ StackArray< T >& StackArray< T >::operator=(StackArray< T >&& other)
   if (this != &other)
   {
     swap(other);
-
-    other.array_ = nullptr;
-    other.top_ = nullptr;
-    other.size_ = nullptr;
   }
   
   return *this;
@@ -155,7 +151,7 @@ T StackArray< T >::pop()
 }
 
 template < class T >
-bool StackArray< T >::isEmpty()
+bool StackArray< T >::isEmpty() const
 {
   return top_ == 0;
 }
