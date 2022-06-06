@@ -11,9 +11,9 @@ int main()
   char* PostfixExp = new char[InfixExpSize];
   try
   {
-    getPostfixFromInfix(InfixExp, PostfixExp, 12);
+    getPostfixFromInfix(InfixExp, PostfixExp, 4);
     std::cout << "\nPostfix expression is " << PostfixExp << "\n";
-    std::cout << "\nThis expression equals to " << evaluatePostfix(PostfixExp, 12) << "\n";
+    std::cout << "\nThis expression equals to " << evaluatePostfix(PostfixExp, 3) << "\n";
   }
   catch (const StackArray< char >::StackException& exc)
   {

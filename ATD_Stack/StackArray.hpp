@@ -29,7 +29,7 @@ public:
   {
   public:
     StackException(const std::string message): message_(message) {}
-    virtual const std::string getMessage() const = 0;
+    virtual const std::string getMessage() const { return message_; }
 
   private:
     std::string message_;
@@ -46,33 +46,21 @@ template < class T >
 class StackOverflow: public StackArray< T >::StackException
 {
 public:
-  StackOverflow(const std::string message = "Stack Overflow"): StackException(message), message_(message) {}
-  const std::string getMessage() const override { return message_; }
-
-private:
-  std::string message_;
+  StackOverflow(const std::string message = "Stack Overflow"): StackException(message) {}
 };
 
 template < class T >
 class StackUnderflow: public StackArray< T >::StackException
 {
 public:
-  StackUnderflow(const std::string message = "Stack Underflow"): StackException(message), message_(message) {}
-  const std::string getMessage() const override { return message_; }
-
-private:
-  std::string message_;
+  StackUnderflow(const std::string message = "Stack Underflow"): StackException(message) {}
 };
 
 template < class T >
 class WrongStackSize: public StackArray< T >::StackException
 {
 public:
-  WrongStackSize(const std::string message = "Wrong Stack Size"): StackException(message), message_(message) {}
-  const std::string getMessage() const override { return message_; }
-
-private:
-  std::string message_;
+  WrongStackSize(const std::string message = "Wrong Stack Size"): StackException(message) {}
 };
 
 template < class T >
