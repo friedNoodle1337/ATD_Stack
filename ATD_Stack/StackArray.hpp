@@ -12,14 +12,14 @@ class StackArray: public Stack< T >
 {
 public:
   StackArray(size_t size = 100);
-  StackArray(const StackArray< T >& src) = delete;
-  StackArray(StackArray< T >&& src);
+  StackArray(const StackArray< T >& other) = delete;
+  StackArray(StackArray< T >&& other);
   virtual ~StackArray() { delete[] array_; }
 
-  StackArray& operator=(const StackArray< T >& src) = delete;
-  StackArray& operator=(StackArray< T >&& src);
+  StackArray& operator=(const StackArray< T >& other) = delete;
+  StackArray& operator=(StackArray< T >&& other);
   template < class T1 >
-  friend std::ostream& operator<<(std::ostream& out, StackArray< T1 >& src);
+  friend std::ostream& operator<<(std::ostream& out, StackArray< T1 >& other);
 
   void push(const T& e) override;
   T pop() override;
@@ -39,7 +39,7 @@ private:
   T* array_ = nullptr;
   size_t top_;
   size_t size_;
-  void swap(StackArray< T >& src);
+  void swap(StackArray< T >& other);
 };
 
 template < class T >
@@ -91,40 +91,39 @@ StackArray< T >::StackArray(size_t size):
 }
 
 template < class T >
-StackArray< T >::StackArray(StackArray< T >&& src):
-  array_(src.array_),
-  top_(src.top_),
-  size_(src.size_)
+StackArray< T >::StackArray(StackArray< T >&& other):
+  array_(other.array_),
+  top_(other.top_),
+  size_(other.size_)
 {
-  if (this != src)
-  {
-    swap(src);
-  }
+  other.array_ = nullptr;
+  other.top_ = nullptr;
+  other.size_ = nullptr;
 }
 
 template < class T >
-StackArray< T >& StackArray< T >::operator=(StackArray< T >&& src)
+StackArray< T >& StackArray< T >::operator=(StackArray< T >&& other)
 {
-  if (this != src)
+  if (this != &other)
   {
-    swap(src);
+    swap(other);
 
-    src.array_ = nullptr;
-    src.top_ = nullptr;
-    src.size_ = nullptr;
+    other.array_ = nullptr;
+    other.top_ = nullptr;
+    other.size_ = nullptr;
   }
   
   return *this;
 }
 
 template < class T1 >
-std::ostream& operator<<(std::ostream& out, StackArray< T1 >& src)
+std::ostream& operator<<(std::ostream& out, StackArray< T1 >& other)
 {
-  if (!(src.isEmpty()))
+  if (other.isEmpty() == false)
   {
-    for (int i = 1; i <= src.top_; ++i)
+    for (size_t i = 1; i <= other.top_; ++i)
     {
-      out << src.array_[i] << " ";
+      out << other.array_[i] << " ";
     }
   }
   else
@@ -148,7 +147,7 @@ void StackArray< T >::push(const T& e)
 template < class T >
 T StackArray< T >::pop()
 {
-  if (isEmpty())
+  if (isEmpty() == true)
   {
     throw StackUnderflow< T >();
   }
@@ -162,11 +161,11 @@ bool StackArray< T >::isEmpty()
 }
 
 template < class T >
-void StackArray< T >::swap(StackArray< T >& src)
+void StackArray< T >::swap(StackArray< T >& other)
 {
-  std::swap(array_, src.array_);
-  std::swap(top_, src.top_);
-  std::swap(size_, src.size_);
+  std::swap(array_, other.array_);
+  std::swap(top_, other.top_);
+  std::swap(size_, other.size_);
 }
 
 #endif
